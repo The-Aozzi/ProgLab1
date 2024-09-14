@@ -59,7 +59,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: ./vcpkg/vcpkg install boost-test
       
-      - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -D CMAKE_TOOLCHAIN_FILE=.vcpkg/scripts/buildsystems/vcpkg.cmake
+      - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -D CMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build .
       - run: cmake --build . --target test
       - run: cmake --build . --target package
