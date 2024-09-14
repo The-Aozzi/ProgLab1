@@ -46,9 +46,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Cache vcpkg
         uses: actions/cache@v3
-        with:
-          path: .vcpkg/installed
-          key: ${{ runner.os }}-vcpkg-boost-${{ hashFiles('**/vcpkg.json')}}
+          with:
+            path: .vcpkg/installed
+            key: ${{ runner.os }}-vcpkg-boost-${{ hashFiles('**/vcpkg.json')}}
 
         with:
           submodules: true
