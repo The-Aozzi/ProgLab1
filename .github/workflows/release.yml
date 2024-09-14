@@ -47,7 +47,7 @@ jobs:
         with:
           submodules: true
       - run: git clone https://github.com/microsoft/vcpkg.git
-      - run: ./vcpkg/bootsrap-vcpkg.bat
+      - run: ./vcpkg/bootstrap-vcpkg.bat
       - run: ./vcpkg/vcpkg install boost
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
