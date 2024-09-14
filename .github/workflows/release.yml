@@ -44,14 +44,15 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
-      - name: Cache vcpkg
-        uses: actions/cache@v3
-          with:
-            path: .vcpkg/installed
-            key: ${{ runner.os }}-vcpkg-boost-${{ hashFiles('**/vcpkg.json')}}
-
         with:
           submodules: true
+      - name: Cache vcpkg
+        uses: actions/cache@v3
+        with:
+          path: .vcpkg/installed
+          key: ${{ runner.os }}-vcpkg-boost-${{ hashFiles('**/vcpkg.json')}}
+
+
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: ./vcpkg/bootstrap-vcpkg.bat
       - name: Install boost
