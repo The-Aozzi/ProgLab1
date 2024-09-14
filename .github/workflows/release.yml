@@ -44,11 +44,20 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
+      - name: Cache vcpkg
+          uses: actions/cache@v3
+          with:
+            path: .vcpkg/installed
+            key: ${{ runner.os }}-vcpkg-boost-${{ hashFiles('**/vcpkg.json')}}
+
         with:
           submodules: true
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: ./vcpkg/bootstrap-vcpkg.bat
-      - run: ./vcpkg/vcpkg install boost
+      - name: Install boost
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: ./vcpkg/vcpkg install boost-test
+      
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
