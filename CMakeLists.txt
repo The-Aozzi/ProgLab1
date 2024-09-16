@@ -29,7 +29,7 @@ target_link_libraries(helloworld_cli PRIVATE
     helloworld
 )
 target_link_libraries(test_version
-	# ${Boost_LIBRARIES}
+	 ${Boost_LIBRARIES}
     helloworld
 )
 
