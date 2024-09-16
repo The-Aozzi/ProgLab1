@@ -56,8 +56,7 @@ jobs:
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: ./vcpkg/bootstrap-vcpkg.bat
       - name: Install boost
-        if: steps.cache.outputs.cache-hit != 'true'
-          run: ./vcpkg/vcpkg install boost-test
+        run: ./vcpkg/vcpkg install boost-test
       
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -D CMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -D CMAKE_CXX_COMPILER=g++
       - run: cmake --build .
