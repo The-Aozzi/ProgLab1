@@ -55,15 +55,15 @@ jobs:
 
       - run: git clone https://github.com/microsoft/vcpkg.git
       - run: ./vcpkg/bootstrap-vcpkg.bat
-      - name: Install boost
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: ./vcpkg/vcpkg install boost-test
+        # - name: Install boost
+        #if: steps.cache.outputs.cache-hit != 'true'
+          #run: ./vcpkg/vcpkg install boost-test
       
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -D CMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -D CMAKE_CXX_COMPILER=g++
       - run: cmake --build .
         #- run: cmake --build . --target test
       - run: cmake --build . --target package
-      - run: ls -A
+        #- run: ls -A
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -81,6 +81,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./helloworld-0.0.${{ github.run_number }}.exe
-          asset_name: helloworld-0.0.${{ github.run_number }}.exe
+          asset_path: ./Debug/helloworld_cli.exe
+          asset_name: helloworld-0.0.${{ github.run_number }}-win64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
